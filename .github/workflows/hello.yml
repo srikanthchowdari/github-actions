@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       name:
-        description: name
+        description: 'Enter your name'
         type: string
-        default: "Hello, people!"
+        default: "people!"
         required: true
 
 jobs:
