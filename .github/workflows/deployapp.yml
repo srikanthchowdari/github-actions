@@ -1,0 +1,53 @@
+name: Deploy Application
+
+on:
+  push:
+    branches:
+      main
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'target Environment'
+        type: choise
+        required: true
+        options:
+          - development
+          - stage
+          - prod
+      
+      version:
+        description: 'Version to deploy'
+        type: string
+        required: true
+        default: 'latest'
+      
+      notify:
+        description: 'Send Slack notification?'
+        type: boolean
+        default: true
+        required: true
+
+      replicas:
+        description:
+        type: number
+        default: 3
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show deployment info
+        run: |
+          echo "Deploying to: ${{ inputs.environment }}"
+          echo "Version: ${{ inputs.version }}"
+          echo "Replicas: ${{ inputs.replicas }}"
+          echo "Notify: ${{ inputs.notify }}"
+      - name: Deploy application
+        run: |
+          echo "kubectl set image deployment/myapp myapp=${{ inputs.version }}"
+          echo "kubectl scale deployment/myapp --replicas=${{ inputs.replicas }}"
+      
+      - name: Send notification
+        if: inputs.notify == true
+        run: echo "Sending Slack notification..."
