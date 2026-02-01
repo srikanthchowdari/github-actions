@@ -15,6 +15,11 @@ on:
           - stage
           - prod
       
+      deploy_to_prod:
+        description: 'Deploy to production?'
+        type: boolean
+        default: false
+      
       version:
         description: 'Version to deploy'
         type: string
@@ -51,3 +56,13 @@ jobs:
       - name: Send notification
         if: inputs.notify == true
         run: echo "Sending Slack notification..."
+
+  deploy_conditional:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploying to Staging
+        if: inputs.deploy_to_prod == false
+        run: echo "Deploying to stage..."
+      - name: Deploying to prod
+        if: inputs.deploy_to_prod == true
+        run: echo "Deploying to PRODUCTION! 🚀"
