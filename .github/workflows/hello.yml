@@ -18,11 +18,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './apps/drontend/package-lock.json'
 
       - name: install dependencies
         working-directory: ./apps/frontend
-        run: npm install
-        
+        run: npm ci
+
       - name: run tests
         working-directory: ./apps/frontend
         run: npm test
