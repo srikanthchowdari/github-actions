@@ -22,10 +22,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - run: echo "runs AFTER setup, echoes "Building..."
+      - run: echo "runs AFTER setup, echoes Building..."
 
   test:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - run: echo "runs AFTER build, echoes "Testing..."
+      - run: echo "runs AFTER build, echoes Testing..."
