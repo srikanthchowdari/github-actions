@@ -3,7 +3,7 @@ name: enterprise workflow
 on:
   push:
     branches:
-      main
+     - main
   workflow_dispatch:
 
 
@@ -13,13 +13,16 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v4
+
       - name: setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+
       - name: install dependencies
         working-directory: ./apps/frontend
         run: npm install
+        
       - name: run tests
         working-directory: ./apps/frontend
         run: npm test
