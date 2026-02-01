@@ -9,6 +9,7 @@ on:
       description: name
       type: string
       default: "Hello, people!"
+      required: true
 
 jobs:
   greet:
