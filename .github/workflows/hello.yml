@@ -19,7 +19,7 @@ jobs:
       - run: echo "setting up"
   
   build:
-    runs-on: ubuntu=latest
+    runs-on: ubuntu-latest
     needs: setup
     steps:
       - run: echo "runs AFTER setup, echoes "Building..."
