@@ -23,7 +23,7 @@ jobs:
 
       - name: install dependencies
         working-directory: ./apps/frontend
-        run: npm ci
+        run: npm install
 
       - name: run tests
         working-directory: ./apps/frontend
