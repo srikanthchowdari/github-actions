@@ -13,8 +13,19 @@ on:
         required: true
 
 jobs:
-  greet:
+  setup:
     runs-on: ubuntu-latest
     steps:
-      - name: Say Hello
-        run: echo "hello from ${{ inputs.name }}!"
+      - run: echo "setting up"
+  
+  build:
+    runs-on: ubuntu=latest
+    needs: setup
+    steps:
+      - run: echo "runs AFTER setup, echoes "Building..."
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - run: echo "runs AFTER build, echoes "Testing..."
