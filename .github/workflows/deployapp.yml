@@ -8,7 +8,7 @@ on:
     inputs:
       environment:
         description: 'target Environment'
-        type: choise
+        type: choice
         required: true
         options:
           - development
@@ -68,14 +68,13 @@ jobs:
         run: echo "Deploying to PRODUCTION! 🚀"
 
 
-jobs:
-  database_test:
-  runs-on: ubuntu-latest
-  strategy:
-    matrix:
-      database: [postgres, mysql, sqlite]
-      node-version: [18, 20]
-
+  database:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        database: [postgres, mysql, sqlite]
+        node-version: [18, 20]
+    
     steps:
       - uses: actions/checkout@v4
       
