@@ -66,3 +66,32 @@ jobs:
       - name: Deploying to prod
         if: inputs.deploy_to_prod == true
         run: echo "Deploying to PRODUCTION! 🚀"
+
+
+jobs:
+  database_test:
+  runs-on: ubuntu-latest
+  strategy:
+    matrix:
+      database: [postgres, mysql, sqlite]
+      node-version: [18, 20]
+
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Database
+        run: |
+          if [ "${{ matrix.database }}" = "postgres" ]; then
+            docker run -d -p 5432:5432 postgres:15
+          elif [ "${{ matrix.database }}" = "mysql" ]; then
+            docker run -d -p 3306:3306 mysql:8
+          fi
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      - run: npm ci
+      - run: npm test
+        env:
+          DATABASE: ${{ matrix.database }}

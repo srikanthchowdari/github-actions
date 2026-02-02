@@ -1,0 +1,30 @@
+name: API CI
+
+on:
+  push:
+    branches:
+      main
+    paths:
+      - 'apps/api/**'
+      - '.girhub/workflows/api.yml'
+
+
+jobs:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: install dependencies
+      working-directory: apps/api
+      run: |
+        pip install pytest
+
+    - name: Run tests
+      working-directory: apps/api
+      run: pytest
+    
+    - name: Echo info
+      run: echo "API changed, running API tests!"
